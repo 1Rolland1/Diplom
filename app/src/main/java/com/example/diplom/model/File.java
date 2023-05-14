@@ -3,32 +3,32 @@ package com.example.diplom.model;
 public class File {
 
 
-    private String name;
-    private boolean sign;
+    private String title;
+    private String sign;
 
-    public File(String name, boolean sign) {
-        this.name = name;
+    public File(String title, String sign) {
+        this.title = title;
         this.sign = sign;
     }
 
-    public File(String name) {
-        this.name = name;
-        this.sign = false;
+    public File(String title) {
+        this.title = title;
+        this.sign = "false";
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public boolean isSign() {
+    public String getSign() {
         return sign;
     }
 
-    public void setSign(boolean sign) {
+    public void setSign(String sign) {
         this.sign = sign;
     }
 
@@ -36,8 +36,8 @@ public class File {
     public boolean equals(Object obj) {
         if(obj instanceof File) {
             File s = (File)obj;
-            String elementName = this.name;
-            String targetName = s.name;
+            String elementName = this.title;
+            String targetName = s.title;
             if(elementName.equals(targetName)) {
                 return true;
             }else {

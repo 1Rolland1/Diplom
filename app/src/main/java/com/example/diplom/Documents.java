@@ -28,9 +28,8 @@ public class Documents extends AppCompatActivity {
 
     FileAdapter fileAdapter;
     ArrayList<File> files;
-    boolean start = true;
-
-
+    ArrayList<File> docs;
+    DBHelper dbHelper;
 
 
     @Override
@@ -43,28 +42,31 @@ public class Documents extends AppCompatActivity {
         java.io.File dir = new java.io.File(getFilesDir().toString() + "/");
         java.io.File[] listOfFiles = dir.listFiles();
 
-
+        dbHelper = new DBHelper(this);
         files = new ArrayList<>();
+        docs = dbHelper.GetAll();
 
-        if (start){
-            start(files, listOfFiles);
+        for(java.io.File obj: listOfFiles){
+            //Получаем название файла из папки files
+            String[] r = obj.toString().split("/");
+            String name= r[r.length - 1];
+            //Сравниваем есть ли такой файл в бд
+            if (docs.contains(new File(name, "false")) || docs.contains(new File(name, "true"))){
+                String signa = null;
+                for (File doc: docs) {
+                    if (doc.getTitle().equals(name))
+                        signa = doc.getSign();
+                }
+                files.add(new File (name, signa));
+            }
         }
+
 
         //Указание адаптера для listview
         fileAdapter = new FileAdapter(this, files);
 
         list.setAdapter(fileAdapter);
 
-    }
-
-    private void start(ArrayList<File> files, java.io.File[] listOfFiles) {
-        for(java.io.File obj: listOfFiles){
-            //Выводим название файла
-            String[] r = obj.toString().split("/");
-            String name= r[r.length - 1];
-            files.add(new File (name));
-        }
-        start = false;
     }
 
     int requestcode = 1;
@@ -86,7 +88,7 @@ public class Documents extends AppCompatActivity {
 
 
 
-            if (files.contains(new File(name, false)) || files.contains(new File(name, true))){
+            if (files.contains(new File(name, "false")) || files.contains(new File(name, "true"))){
                 Toast toast = Toast.makeText(this, "Файл с таким названием\n          уже существует", Toast.LENGTH_SHORT);
                 toast.show();
             } else {
@@ -94,7 +96,8 @@ public class Documents extends AppCompatActivity {
                 writeFile(bytes, name);
 
                 //Добавляем документ в список
-                files.add(new File (name, false));
+                files.add(new File (name, "false"));
+                dbHelper.AddOne(new File(name, "false"));
                 fileAdapter.notifyDataSetChanged();
             }
 
@@ -158,6 +161,24 @@ public class Documents extends AppCompatActivity {
     //Клавиша возврата на начальную страницу
     public void toMain(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        files.clear();
+        /*if (docs.size() > 0){
+            for (int i = 0; i < docs.size(); i++) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "File: " + docs.get(i).getTitle() + ", sign:" + docs.get(i).getSign(),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Succes",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Документы не загружены",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }*/
         startActivity(intent);
     }
 }
