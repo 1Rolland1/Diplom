@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,14 @@ public class FileAdapter extends ArrayAdapter<File> {
         TextView name = (TextView) view.findViewById(R.id.name);
         name.setText(this.files.get(position).getTitle());
         DBHelper dbHelper = new DBHelper(context);
+
+        ImageView doc_icon = (ImageView) view.findViewById(R.id.doc_icon);
+
+        if (files.get(position).getSign().equals("true")){
+            doc_icon.setImageResource(R.drawable.signfile);
+        } else {
+            doc_icon.setImageResource(R.drawable.file);
+        }
 
 
         ImageButton btnDelete = (ImageButton) view.findViewById(R.id.btnDelete);

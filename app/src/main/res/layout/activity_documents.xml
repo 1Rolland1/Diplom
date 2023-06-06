@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toStartOf="@+id/addButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/home" />
+            app:srcCompat="@drawable/exit" />
 
         <ImageButton
             android:id="@+id/addButton"

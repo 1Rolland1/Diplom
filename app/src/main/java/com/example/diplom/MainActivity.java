@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void documents(View view){
-        Intent intent = new Intent(this, Documents.class);
+        Intent intent = new Intent(this, SignIn.class);
 
         startActivity(intent);
     }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/doc_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/file" />
+
+        />
 
     <TextView
         android:id="@+id/name"
@@ -30,7 +31,7 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/doc_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
