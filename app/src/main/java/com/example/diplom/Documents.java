@@ -37,12 +37,17 @@ public class Documents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_documents);
 
+        // Получаем значение переменной name из Intent
+        String user = getIntent().getStringExtra("name");
+
+
         list = (ListView) findViewById(R.id.files);
 
         java.io.File dir = new java.io.File(getFilesDir().toString() + "/");
         java.io.File[] listOfFiles = dir.listFiles();
 
         dbHelper = new DBHelper(this);
+
         files = new ArrayList<>();
         docs = dbHelper.GetAll();
 
@@ -63,7 +68,7 @@ public class Documents extends AppCompatActivity {
 
 
         //Указание адаптера для listview
-        fileAdapter = new FileAdapter(this, files);
+        fileAdapter = new FileAdapter(this, files, user);
 
         list.setAdapter(fileAdapter);
 
@@ -107,7 +112,7 @@ public class Documents extends AppCompatActivity {
 
 
     //Сохранение выбранного файла в локальную папку приложения
-    void writeFile(byte[] bytes, String name) {
+    public void writeFile(byte[] bytes, String name) {
         FileOutputStream fos = null;
 
         try {
